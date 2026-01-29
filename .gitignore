@@ -1,0 +1,45 @@
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+*.log
+
+# Android Studio
+*.iml
+.idea/
+.gradle/
+android/.gradle/
+android/captures/
+android/local.properties
+android/app/debug
+android/app/profile
+android/app/release
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Test
+coverage/
+test/.test_coverage.dart
