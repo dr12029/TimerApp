@@ -198,15 +198,9 @@ class TimerProvider extends ChangeNotifier {
         intensities: [0, 255, 0, 255, 0, 255],
       );
     }
-
-    // Play sound
-    if (_isSoundEnabled) {
-      try {
-        await _audioPlayer.play(AssetSource('sounds/alert.mp3'));
-      } catch (e) {
-        debugPrint('Error playing sound: $e');
-      }
-    }
+    
+    // Play sound temporarily removed to fix build issues
+    // if (_isSoundEnabled) { ... }
 
     // Start continuous flashing
     _startFlashing();
@@ -215,7 +209,7 @@ class TimerProvider extends ChangeNotifier {
   void _startFlashing() {
     // Cancel any existing flash timer
     _flashTimer?.cancel();
-    
+
     // Continuous flashing until user dismisses (pause/reset)
     _flashTimer = Timer.periodic(const Duration(milliseconds: 800), (timer) {
       if (_state != TimerState.running && _state != TimerState.finished) {

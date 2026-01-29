@@ -14,11 +14,11 @@ class _TimePickerState extends State<TimePicker> {
   int _hours = 0;
   int _minutes = 10;
   int _seconds = 0;
-  
+
   final _hoursController = TextEditingController(text: '00');
   final _minutesController = TextEditingController(text: '10');
   final _secondsController = TextEditingController(text: '00');
-  
+
   final _hoursFocus = FocusNode();
   final _minutesFocus = FocusNode();
   final _secondsFocus = FocusNode();
@@ -152,7 +152,8 @@ class _TimePickerState extends State<TimePicker> {
             width: 70,
             height: 60,
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.5),
+              color:
+                  Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.5),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Center(
@@ -166,8 +167,8 @@ class _TimePickerState extends State<TimePicker> {
                   LengthLimitingTextInputFormatter(2),
                 ],
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
+                      fontWeight: FontWeight.w600,
+                    ),
                 decoration: const InputDecoration(
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.zero,
@@ -208,7 +209,7 @@ class _TimePickerState extends State<TimePicker> {
       _hours = (hours ?? _hours).clamp(0, 23);
       _minutes = (minutes ?? _minutes).clamp(0, 59);
       _seconds = (seconds ?? _seconds).clamp(0, 59);
-      
+
       _hoursController.text = _hours.toString().padLeft(2, '0');
       _minutesController.text = _minutes.toString().padLeft(2, '0');
       _secondsController.text = _seconds.toString().padLeft(2, '0');
