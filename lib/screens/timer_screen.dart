@@ -28,9 +28,12 @@ class TimerScreen extends StatelessWidget {
                     children: [
                       Text(
                         'Timer',
-                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium
+                            ?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
                       Row(
                         children: [
@@ -73,14 +76,17 @@ class TimerScreen extends StatelessWidget {
                         Hero(
                           tag: 'timer_circle',
                           child: AnimatedScale(
-                            scale: timerProvider.state == TimerState.running ? 1.0 : 0.95,
+                            scale: timerProvider.state == TimerState.running
+                                ? 1.0
+                                : 0.95,
                             duration: const Duration(milliseconds: 300),
                             child: CircularTimer(
                               progress: timerProvider.progress,
                               timeText: timerProvider.formatDuration(
                                 timerProvider.remainingTime,
                               ),
-                              progressColor: _getProgressColor(context, timerProvider),
+                              progressColor:
+                                  _getProgressColor(context, timerProvider),
                             ),
                           ),
                         ),
@@ -124,7 +130,8 @@ class TimerScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildControlButtons(BuildContext context, TimerProvider timerProvider) {
+  Widget _buildControlButtons(
+      BuildContext context, TimerProvider timerProvider) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -178,11 +185,11 @@ class TimerScreen extends StatelessWidget {
 
   Color _getProgressColor(BuildContext context, TimerProvider timerProvider) {
     final theme = Theme.of(context);
-    
+
     if (timerProvider.state == TimerState.finished) {
       return Colors.red;
     }
-    
+
     // Change color based on remaining time
     final progress = timerProvider.progress;
     if (progress > 0.5) {

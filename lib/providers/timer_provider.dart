@@ -15,12 +15,13 @@ class TimerProvider extends ChangeNotifier {
   Duration _remainingTime = const Duration(minutes: 10);
   List<TimerAlert> _alerts = [];
   Timer? _timer;
-  
+  Timer? _flashTimer;
+
   // Settings
   bool _isSoundEnabled = true;
   bool _isDarkMode = true;
   bool _isFlashing = false;
-  
+
   final AudioPlayer _audioPlayer = AudioPlayer();
 
   // Getters
@@ -31,7 +32,7 @@ class TimerProvider extends ChangeNotifier {
   bool get isSoundEnabled => _isSoundEnabled;
   bool get isDarkMode => _isDarkMode;
   bool get isFlashing => _isFlashing;
-  
+
   double get progress {
     if (_totalDuration.inSeconds == 0) return 0;
     return _remainingTime.inSeconds / _totalDuration.inSeconds;
@@ -45,14 +46,14 @@ class TimerProvider extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     _isSoundEnabled = prefs.getBool('sound_enabled') ?? true;
     _isDarkMode = prefs.getBool('dark_mode') ?? true;
-    
+
     // Load saved alerts
     final alertsJson = prefs.getString('alerts');
     if (alertsJson != null) {
       final List<dynamic> decoded = jsonDecode(alertsJson);
       _alerts = decoded.map((json) => TimerAlert.fromJson(json)).toList();
     }
-    
+
     notifyListeners();
   }
 
@@ -60,7 +61,7 @@ class TimerProvider extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('sound_enabled', _isSoundEnabled);
     await prefs.setBool('dark_mode', _isDarkMode);
-    
+
     // Save alerts
     final alertsJson = jsonEncode(_alerts.map((a) => a.toJson()).toList());
     await prefs.setString('alerts', alertsJson);
@@ -115,14 +116,14 @@ class TimerProvider extends ChangeNotifier {
     if (_state == TimerState.idle || _state == TimerState.paused) {
       _state = TimerState.running;
       WakelockPlus.enable(); // Keep screen on
-      
+
       // Reset alert triggers if starting from idle
       if (_remainingTime == _totalDuration) {
         for (var alert in _alerts) {
           alert.hasTriggered = false;
         }
       }
-      
+
       _timer = Timer.periodic(const Duration(seconds: 1), _onTick);
       notifyListeners();
     }
@@ -132,6 +133,8 @@ class TimerProvider extends ChangeNotifier {
     if (_state == TimerState.running) {
       _state = TimerState.paused;
       _timer?.cancel();
+      _flashTimer?.cancel();
+      _isFlashing = false;
       WakelockPlus.disable();
       notifyListeners();
     }
@@ -139,15 +142,16 @@ class TimerProvider extends ChangeNotifier {
 
   void reset() {
     _timer?.cancel();
+    _flashTimer?.cancel();
     _state = TimerState.idle;
     _remainingTime = _totalDuration;
     _isFlashing = false;
-    
+
     // Reset all alert triggers
     for (var alert in _alerts) {
       alert.hasTriggered = false;
     }
-    
+
     WakelockPlus.disable();
     notifyListeners();
   }
@@ -155,10 +159,10 @@ class TimerProvider extends ChangeNotifier {
   void _onTick(Timer timer) {
     if (_remainingTime.inSeconds > 0) {
       _remainingTime = Duration(seconds: _remainingTime.inSeconds - 1);
-      
+
       // Check alerts
       _checkAlerts();
-      
+
       notifyListeners();
     } else {
       // Timer finished
@@ -179,10 +183,10 @@ class TimerProvider extends ChangeNotifier {
     _timer?.cancel();
     _state = TimerState.finished;
     await _triggerAlert(isFinish: true);
-    
+
     // Keep flashing until reset
     _startFlashing();
-    
+
     notifyListeners();
   }
 
@@ -194,7 +198,7 @@ class TimerProvider extends ChangeNotifier {
         intensities: [0, 255, 0, 255, 0, 255],
       );
     }
-    
+
     // Play sound
     if (_isSoundEnabled) {
       try {
@@ -203,29 +207,24 @@ class TimerProvider extends ChangeNotifier {
         debugPrint('Error playing sound: $e');
       }
     }
-    
-    // Trigger flash animation
-    _flashScreen();
-  }
 
-  void _flashScreen() {
-    _isFlashing = true;
-    notifyListeners();
-    
-    Timer(const Duration(milliseconds: 300), () {
-      _isFlashing = false;
-      notifyListeners();
-    });
+    // Start continuous flashing
+    _startFlashing();
   }
 
   void _startFlashing() {
-    // Continuous flashing for finished state
-    Timer.periodic(const Duration(milliseconds: 800), (timer) {
-      if (_state != TimerState.finished) {
+    // Cancel any existing flash timer
+    _flashTimer?.cancel();
+    
+    // Continuous flashing until user dismisses (pause/reset)
+    _flashTimer = Timer.periodic(const Duration(milliseconds: 800), (timer) {
+      if (_state != TimerState.running && _state != TimerState.finished) {
         timer.cancel();
+        _isFlashing = false;
+        notifyListeners();
         return;
       }
-      
+
       _isFlashing = !_isFlashing;
       notifyListeners();
     });
@@ -236,7 +235,7 @@ class TimerProvider extends ChangeNotifier {
     final hours = duration.inHours;
     final minutes = duration.inMinutes.remainder(60);
     final seconds = duration.inSeconds.remainder(60);
-    
+
     if (hours > 0) {
       return '${twoDigits(hours)}:${twoDigits(minutes)}:${twoDigits(seconds)}';
     } else {
@@ -247,6 +246,7 @@ class TimerProvider extends ChangeNotifier {
   @override
   void dispose() {
     _timer?.cancel();
+    _flashTimer?.cancel();
     _audioPlayer.dispose();
     WakelockPlus.disable();
     super.dispose();

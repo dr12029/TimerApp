@@ -16,6 +16,7 @@ A modern Android countdown timer app with multiple alerts and background support
 ## Setup Instructions
 
 ### Prerequisites
+
 - Flutter SDK 3.2.0 or higher
 - Android Studio or VS Code with Flutter extensions
 - Android device or emulator (API 24+)
@@ -23,6 +24,7 @@ A modern Android countdown timer app with multiple alerts and background support
 ### Installation Steps
 
 1. **Install Flutter dependencies:**
+
    ```bash
    flutter pub get
    ```

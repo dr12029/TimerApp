@@ -24,8 +24,8 @@ class AlertsList extends StatelessWidget {
                 Text(
                   'Alert Times',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
+                        fontWeight: FontWeight.w600,
+                      ),
                 ),
                 if (isIdle)
                   IconButton(
@@ -43,8 +43,8 @@ class AlertsList extends StatelessWidget {
                   child: Text(
                     'No alerts set. Tap + to add alerts.',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
                   ),
                 ),
               )
@@ -64,7 +64,9 @@ class AlertsList extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: ListTile(
         leading: Icon(
-          alert.hasTriggered ? Icons.notifications_active : Icons.notifications_outlined,
+          alert.hasTriggered
+              ? Icons.notifications_active
+              : Icons.notifications_outlined,
           color: alert.hasTriggered ? theme.colorScheme.primary : null,
         ),
         title: Text(
@@ -80,7 +82,7 @@ class AlertsList extends StatelessWidget {
                 onPressed: () => timerProvider.removeAlert(alert.id),
               )
             : null,
-        tileColor: alert.hasTriggered 
+        tileColor: alert.hasTriggered
             ? theme.colorScheme.primaryContainer.withOpacity(0.3)
             : null,
         shape: RoundedRectangleBorder(

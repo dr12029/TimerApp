@@ -20,7 +20,8 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: 'Timer App',
             debugShowCheckedModeBanner: false,
-            themeMode: timerProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+            themeMode:
+                timerProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
             theme: _buildLightTheme(),
             darkTheme: _buildDarkTheme(),
             home: const TimerScreen(),
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
         seedColor: Colors.blue,
         brightness: Brightness.light,
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         elevation: 2,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
@@ -59,7 +60,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
       ),
       scaffoldBackgroundColor: Colors.black,
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         elevation: 2,
         color: const Color(0xFF1E1E1E),
         shape: RoundedRectangleBorder(

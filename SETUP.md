@@ -29,6 +29,7 @@ Flutter SDK is not installed on your system. Follow these steps to get the app r
 ## Step 2: Install Android Development Tools
 
 ### Option A: Android Studio (Recommended)
+
 1. Download Android Studio: https://developer.android.com/studio
 2. During installation, ensure these are checked:
    - Android SDK
@@ -38,6 +39,7 @@ Flutter SDK is not installed on your system. Follow these steps to get the app r
 4. Open SDK Manager and ensure Android SDK 34 is installed
 
 ### Option B: VS Code with Flutter Extension
+
 1. Install VS Code: https://code.visualstudio.com/
 2. Install Flutter extension from marketplace
 3. Run `flutter doctor` and follow prompts to install Android SDK
@@ -76,20 +78,25 @@ Transfer this file to your Android device and install it.
 ## Troubleshooting
 
 ### "cmdlet not found" Error
+
 - Flutter is not in your PATH. See Step 1 above.
 - After adding to PATH, restart PowerShell/Terminal
 
 ### "No devices found"
+
 - Enable USB Debugging on your Android phone (Settings > Developer Options)
 - Or start an Android emulator from Android Studio
 
 ### License Errors
+
 ```powershell
 flutter doctor --android-licenses
 ```
+
 Accept all licenses when prompted.
 
 ### Gradle Errors
+
 ```powershell
 cd android
 ./gradlew clean
@@ -140,11 +147,13 @@ flutter build appbundle --release
 ## Support
 
 For Flutter installation help:
+
 - Official docs: https://docs.flutter.dev/get-started/install
 - Flutter Discord: https://discord.gg/flutter
 - Stack Overflow: https://stackoverflow.com/questions/tagged/flutter
 
 For this project:
+
 - Check README.md for detailed documentation
 - All code is commented and organized
 - Settings screen shows all features

@@ -16,6 +16,7 @@ Build your APK automatically in the cloud using GitHub:
    - Click "Create repository"
 
 3. **Upload Your Code**
+
    ```powershell
    cd e:\TimerApp
    git init
@@ -34,6 +35,7 @@ Build your APK automatically in the cloud using GitHub:
    - Download APK from "Artifacts" section
 
 ### Advantages:
+
 - ✅ Completely free
 - ✅ No local Flutter installation needed
 - ✅ Automatic builds on every push
@@ -64,6 +66,7 @@ Cloud-based Flutter build service with GUI:
    - Download APK
 
 ### Advantages:
+
 - ✅ User-friendly GUI
 - ✅ 500 free build minutes/month
 - ✅ Direct APK download
@@ -76,6 +79,7 @@ Cloud-based Flutter build service with GUI:
 Use pre-configured Flutter environment in a container:
 
 ### Requirements:
+
 - Docker Desktop installed
 - No Flutter needed!
 
@@ -88,6 +92,7 @@ Use pre-configured Flutter environment in a container:
    Already created at: `e:\TimerApp\Dockerfile`
 
 3. **Build with Docker**
+
    ```powershell
    cd e:\TimerApp
    docker build -t timer-app-builder .
@@ -98,6 +103,7 @@ Use pre-configured Flutter environment in a container:
    - APK will be in: `build\app\outputs\flutter-apk\app-release.apk`
 
 ### Advantages:
+
 - ✅ Works offline (after initial setup)
 - ✅ Isolated environment
 - ✅ Reproducible builds
@@ -110,6 +116,7 @@ Use pre-configured Flutter environment in a container:
 If you want to avoid technical setup entirely:
 
 ### FlutterFlow (Paid but Easy):
+
 - Visual Flutter builder
 - Export to APK directly
 - No coding needed
@@ -124,6 +131,7 @@ If you want to avoid technical setup entirely:
 Share your code folder with someone who has Flutter installed:
 
 1. **Compress the folder:**
+
    ```powershell
    Compress-Archive -Path e:\TimerApp -DestinationPath e:\TimerApp.zip
    ```
@@ -134,6 +142,7 @@ Share your code folder with someone who has Flutter installed:
    - Email (if < 25MB)
 
 3. **They run:**
+
    ```bash
    flutter pub get
    flutter build apk --release
@@ -146,16 +155,19 @@ Share your code folder with someone who has Flutter installed:
 ## 🏆 Recommended Approach
 
 **For quick one-time build:** Use **GitHub Actions** (Option 1)
+
 - Free, automated, no local setup
 - Professional approach
 - Reusable for future updates
 
 **For frequent builds:** Install Flutter locally
+
 - Faster iteration
 - Full control
 - Better for development
 
 **For offline builds:** Use **Docker** (Option 3)
+
 - No Flutter on main system
 - Clean environment
 - Works anywhere
@@ -164,13 +176,13 @@ Share your code folder with someone who has Flutter installed:
 
 ## 📋 Comparison Table
 
-| Method | Free | Time to Setup | Build Time | Complexity | Best For |
-|--------|------|---------------|------------|------------|----------|
-| **GitHub Actions** | ✅ Yes | 10 min | 5-10 min | Low | One-time builds |
-| **Codemagic** | ✅ 500 min/mo | 5 min | 5-10 min | Very Low | GUI lovers |
-| **Docker** | ✅ Yes | 30 min | 10-15 min | Medium | Offline/reproducible |
-| **Flutter Local** | ✅ Yes | 30-60 min | 2-5 min | Medium | Development |
-| **Ask Someone** | ✅ Yes | 5 min | 5 min | Very Low | Quick test |
+| Method             | Free          | Time to Setup | Build Time | Complexity | Best For             |
+| ------------------ | ------------- | ------------- | ---------- | ---------- | -------------------- |
+| **GitHub Actions** | ✅ Yes        | 10 min        | 5-10 min   | Low        | One-time builds      |
+| **Codemagic**      | ✅ 500 min/mo | 5 min         | 5-10 min   | Very Low   | GUI lovers           |
+| **Docker**         | ✅ Yes        | 30 min        | 10-15 min  | Medium     | Offline/reproducible |
+| **Flutter Local**  | ✅ Yes        | 30-60 min     | 2-5 min    | Medium     | Development          |
+| **Ask Someone**    | ✅ Yes        | 5 min         | 5 min      | Very Low   | Quick test           |
 
 ---
 
@@ -203,11 +215,13 @@ git push -u origin main
 ## ❓ Don't Have Git?
 
 Download Git for Windows:
+
 - https://git-scm.com/download/win
 - Install with default options
 - Restart PowerShell
 
 Or use GitHub Desktop (GUI):
+
 - https://desktop.github.com/
 - Drag folder to create repo
 - Publish to GitHub
@@ -218,12 +232,14 @@ Or use GitHub Desktop (GUI):
 ## 📦 What You'll Get
 
 After any method above, you'll have:
+
 - `app-release.apk` (~15-25 MB)
 - Installable on any Android device
 - No developer account needed
 - Ready to share via any file transfer
 
 Just remember:
+
 - ⚠️ Need to enable "Install from unknown sources" on Android
 - ⚠️ APK is unsigned (for personal use only)
 - ⚠️ For Play Store, you'd need to sign it
